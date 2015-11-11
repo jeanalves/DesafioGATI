@@ -99,14 +99,18 @@ public class CRUD {
         System.out.print("Digite o id do cliente que deseja deletar : ");
         int id = readInt();
         
+        Cliente cliDel = null;
+        
         //Procura pelo objeto que tem o id informado e o remove
         for(Cliente cli: this.clientes){
             
             if(cli.getId() == id){
-                this.clientes.remove(cli);
+                cliDel = cli;
             }
             
         }
+        
+        this.clientes.remove(cliDel);
         
         System.out.println("Cliente removido com sucesso!");
         
