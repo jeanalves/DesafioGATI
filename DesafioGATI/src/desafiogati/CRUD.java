@@ -52,7 +52,7 @@ public class CRUD {
         System.out.print("Digite um numero : "); cliente.setNumero(readString());
         System.out.print("Digite um bairro : "); cliente.setBairro(readString());
         System.out.print("Digite um cep : "); cliente.setCep(readString());
-        System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readYN());
+        System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readSN());
         
         //Adciona o objeto cliente a ArrayList clientes
         this.clientes.add(cliente);
@@ -61,9 +61,33 @@ public class CRUD {
         pausa();
     }
     
+    //Lista todos os registros de clientes sem utilizar filtro
     public void listagem(){
+        List<Cliente> tempCli = new ArrayList<>();
+        
         System.out.println("\n\n----------------Listagem----------------\n");
-        for(Cliente cli: this.clientes){
+        
+        System.out.println("Escolha uma forma de listagem");
+        System.out.println("1 - Normal(Sem filtro)");
+        System.out.println("2 - Nome(Com filtro)");
+        System.out.println("3 - Email(Com filtro)");
+        System.out.println("4 - Ativo(Com filtro)");
+        System.out.print("Opcao : ");int opcao = readInt();
+        
+        if(opcao == 1){
+            tempCli=listagemNormal();
+        }
+        else if(opcao == 2){
+            tempCli=listagemNome();
+        }
+        else if(opcao == 3){
+            tempCli=listagemEmail();
+        }
+        else if(opcao == 4){
+            tempCli=listagemAtivo();
+        }
+        
+        for(Cliente cli: tempCli){
             System.out.println(
                                 cli.getId() + " " +
                                 cli.getNome() + " " +
@@ -79,6 +103,69 @@ public class CRUD {
         pausa();
     }
     
+    //Retorna a lista padrão para listagem
+    public List<Cliente> listagemNormal(){     
+        return this.clientes;
+    }
+    
+    //Filtra por nome e retorna a lista filtrada
+    public List<Cliente> listagemNome(){
+        
+        System.out.print("Digite o nome que deseja filtrar: ");
+        String nome = readString();
+        
+        List<Cliente> tempCli = new ArrayList<>();
+        
+        for(Cliente cli: this.clientes){
+            
+            if(cli.getNome().equals(nome)){
+                tempCli.add(cli);
+            }
+            
+        }
+        return tempCli;
+    }
+    
+    //Filtra por email e retorna a lista filtrada
+    public List<Cliente> listagemEmail(){
+        
+        System.out.print("Digite o email que deseja filtrar: ");
+        String email = readString();
+        
+        List <Cliente> tempCli = new ArrayList<>();
+        
+        for(Cliente cli: this.clientes){
+            
+            if(cli.getEmail().equals(email)){
+                tempCli.add(cli);
+            }
+            
+        }
+        
+        return tempCli;
+    }
+    
+    //Filtra por ativo (Sim ou não) e retorna a lista filtrada
+    public List<Cliente> listagemAtivo(){
+        
+        System.out.print("Digite se ativo que deseja filtrar (S/N): ");
+        boolean ativo = readSN();
+        
+        List <Cliente> tempCli = new ArrayList<>();
+        
+        for(Cliente cli: this.clientes){
+            
+            if(cli.isAtivo() == ativo){
+                tempCli.add(cli);
+            }
+            
+        }
+        
+        return tempCli;
+    }
+    
+    
+    //Atualiza o registr de um cliente
     public void atualizar(){
         System.out.println("\n\n----------------Atualizar----------------\n");
         
@@ -98,7 +185,7 @@ public class CRUD {
             System.out.print("Digite um novo numero : "); cliente.setNumero(readString());
             System.out.print("Digite um novo bairro : "); cliente.setBairro(readString());
             System.out.print("Digite um novo cep : "); cliente.setCep(readString());
-            System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readYN());
+            System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readSN());
 
             System.out.println("\nCliente atualizado com sucesso!");
             
@@ -148,7 +235,7 @@ public class CRUD {
     }
     
     //Faz a leitura do teclado e de acordo com a tecla precionada(S ou N) retorna um valor boleano
-    public static boolean readYN(){
+    public static boolean readSN(){
         String read = " ";
         
         do{
