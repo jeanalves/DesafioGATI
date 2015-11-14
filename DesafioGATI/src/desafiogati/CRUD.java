@@ -56,17 +56,30 @@ public class CRUD {
         msg.setCampo(UtilMensagem.Campo.EMAIL);
         cliente.setEmail(readString(msg,"Digite um email : "));
         
-        System.out.print("Digite um telefone : "); cliente.setTelefone(readString());
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.TELEFONE);
+        cliente.setTelefone(readString(msg,"Digite um telefone : "));
+        
         System.out.print("Digite um endereco : "); cliente.setEndereco(readString());
-        System.out.print("Digite um numero : "); cliente.setNumero(readString());
-        System.out.print("Digite um bairro : "); cliente.setBairro(readString());
-        System.out.print("Digite um cep : "); cliente.setCep(readString());
+        
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.NUMERO);
+        cliente.setNumero(readString(msg,"Digite um numero : "));
+        
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.BAIRRO);
+        cliente.setBairro(readString(msg,"Digite um bairro : "));
+        
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.CEP);
+        cliente.setCep(readString(msg,"Digite um CEP : "));
+        
         System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readSN());
         
         //Adciona o objeto cliente a ArrayList clientes
         this.clientes.add(cliente);
         
-        System.out.println("Cliente cadastrado com sucesso");
+        System.out.println("Cliente cadastrado com sucesso!");
         pausa();
     }
     
@@ -186,16 +199,35 @@ public class CRUD {
         cliente = retornaCliente(cliente.getId());
         
         if(cliente != null){
+            UtilMensagem msg;
+
             
-            
-            System.out.print("Digite um novo nome : "); cliente.setNome(readString());
-            
-            System.out.print("Digite um novo email : "); cliente.setEmail(readString());
-            System.out.print("Digite um novo telefone : "); cliente.setTelefone(readString());
+            msg = new UtilMensagem();//Cria uma nova mensagem limpa
+            msg.setCampo(UtilMensagem.Campo.NOME);//Seta o campo para validação
+            cliente.setNome(readString(msg,"Digite um novo nome : "));//Faz a validação e atribui o valor ao atributo
+
+            msg = new UtilMensagem();
+            msg.setCampo(UtilMensagem.Campo.EMAIL);
+            cliente.setEmail(readString(msg,"Digite um novo email : "));
+
+            msg = new UtilMensagem();
+            msg.setCampo(UtilMensagem.Campo.TELEFONE);
+            cliente.setTelefone(readString(msg,"Digite um novo telefone : "));
+
             System.out.print("Digite um novo endereco : "); cliente.setEndereco(readString());
-            System.out.print("Digite um novo numero : "); cliente.setNumero(readString());
-            System.out.print("Digite um novo bairro : "); cliente.setBairro(readString());
-            System.out.print("Digite um novo cep : "); cliente.setCep(readString());
+
+            msg = new UtilMensagem();
+            msg.setCampo(UtilMensagem.Campo.NUMERO);
+            cliente.setNumero(readString(msg,"Digite um novo numero : "));
+
+            msg = new UtilMensagem();
+            msg.setCampo(UtilMensagem.Campo.BAIRRO);
+            cliente.setBairro(readString(msg,"Digite um novo bairro : "));
+
+            msg = new UtilMensagem();
+            msg.setCampo(UtilMensagem.Campo.CEP);
+            cliente.setCep(readString(msg,"Digite um novo CEP : "));
+
             System.out.print("Ativo? (S/N) : "); cliente.setAtivo(readSN());
 
             System.out.println("\nCliente atualizado com sucesso!");
@@ -218,8 +250,6 @@ public class CRUD {
         System.out.println("Cliente removido com sucesso!");
         pausa();
     }
-    
-    
     
     //Funçoes do CRUD
     

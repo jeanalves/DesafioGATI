@@ -9,7 +9,7 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
-    private String Endereco;
+    private String endereco;
     private String numero;
     private String bairro;
     private String cep;
@@ -49,11 +49,11 @@ public class Cliente {
     }
 
     public String getEndereco() {
-        return Endereco;
+        return endereco;
     }
 
     public void setEndereco(String Endereco) {
-        this.Endereco = Endereco;
+        this.endereco = Endereco;
     }
 
     public String getNumero() {

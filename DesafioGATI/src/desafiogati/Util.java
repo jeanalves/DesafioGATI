@@ -22,12 +22,23 @@ public class Util {
         }//Validação do email
         else if(msg.getCampo().equals(UtilMensagem.Campo.EMAIL)){
             validaEmail(this.clientes,msg);
+        }//Validação do telefone
+        else if(msg.getCampo().equals(UtilMensagem.Campo.TELEFONE)){
+            validaTelefone(msg);
+        }//Validação do numero
+        else if(msg.getCampo().equals(UtilMensagem.Campo.NUMERO)){
+            validaNumero(msg);
+        }//Validação do bairro
+        else if(msg.getCampo().equals(UtilMensagem.Campo.BAIRRO)){
+            validaBairro(msg);
+        }//Validação do cep
+        else if(msg.getCampo().equals(UtilMensagem.Campo.CEP)){
+            validaCep(msg);
         }
         else{
             this.msg = msg;
             this.msg.setValido(true);
         }
-        
         return this.msg;
     }
     
@@ -51,26 +62,26 @@ public class Util {
         int caracteresMinimos = 3;
         int caracteresMaximos = 100;
         
-        if(msg.getMensagemString().length() > caracteresMinimos && msg.getMensagemString().length() < caracteresMaximos){
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
             msg.setValido(true);
         }
         else{
             msg.setValido(false);
-            msg.setMensagemString("O nome deve conter entre 3 e 100 caracteres!");
+            msg.setMensagemString("O nome deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
         }
         this.msg = msg;
     }
     
     //Valida o campo email
     public void validaEmail(List<Cliente> cliente, UtilMensagem msg){
-        int caracteresMinimos = 3;
+        int caracteresMinimos = 0;
         int caracteresMaximos = 100;
         
-        if(msg.getMensagemString().length() != caracteresMinimos && msg.getMensagemString().length() < caracteresMaximos){
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
             msg.setValido(true);
         }else{
             msg.setValido(false);
-            msg.setMensagemString("O campo email de conter entre 1 e 100 caracteres!\n");
+            msg.setMensagemString("O campo email deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
         }
         
         
@@ -83,4 +94,76 @@ public class Util {
         this.msg = msg;
     }
     
+    //Valida  o campo telefone
+    public void validaTelefone(UtilMensagem msg){
+        
+        int caracteresMinimos = 1;
+        int caracteresMaximos = 25;
+        
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
+            msg.setValido(true);
+        }
+        else{
+            msg.setValido(false);
+            msg.setMensagemString("O campo telefone deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
+        }
+        
+        this.msg = msg;
+    }
+    
+    //Valida  o campo numero
+    public void validaNumero(UtilMensagem msg){
+
+        int caracteresMinimos = 1;
+        int caracteresMaximos = 10;
+        
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
+            msg.setValido(true);
+        }
+        else{
+            msg.setValido(false);
+            msg.setMensagemString("O campo numero deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
+        }
+        
+        this.msg = msg;
+    }
+
+    //Valida  o campo bairro
+    public void validaBairro(UtilMensagem msg){
+        int caracteresMinimos = 1;
+        int caracteresMaximos = 255;
+        
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
+            msg.setValido(true);
+        }
+        else{
+            msg.setValido(false);
+            msg.setMensagemString("O campo bairro deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
+        }
+        
+        this.msg = msg;
+    }
+    
+    //Valida  o campo CEP
+    public void validaCep(UtilMensagem msg){
+        int caracteresMinimos = 0;
+        int caracteresMaximos = 10;
+        
+        if(msg.getMensagemString().length() >= caracteresMinimos && msg.getMensagemString().length() <= caracteresMaximos){
+            msg.setValido(true);
+        }
+        else{
+            msg.setValido(false);
+            msg.setMensagemString("O campo CEP deve conter entre " + caracteresMinimos + " e " + caracteresMaximos + " caracteres!");
+        }
+        
+        this.msg = msg;
+    }
+    
+    /*
+    public void validaAtivo(){
+        
+    }
+    */
 }
+
