@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class CRUD {
     
     private List<Cliente> clientes = new ArrayList<>();
+    Util util = new Util(this.clientes);
     
     public void iniciar(){
         
@@ -43,10 +44,18 @@ public class CRUD {
         
         System.out.println("\n\n----------------Cadastro----------------\n");
         Cliente cliente = new Cliente();
+        UtilMensagem msg;
         
         System.out.print("Digite um id : "); cliente.setId(readInt());
-        System.out.print("Digite um nome : "); cliente.setNome(readString());
-        System.out.print("Digite um email : "); cliente.setEmail(readString());
+        
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.NOME);
+        cliente.setNome(readString(msg,"Digite um nome : "));
+        
+        msg = new UtilMensagem();
+        msg.setCampo(UtilMensagem.Campo.EMAIL);
+        cliente.setEmail(readString(msg,"Digite um email : "));
+        
         System.out.print("Digite um telefone : "); cliente.setTelefone(readString());
         System.out.print("Digite um endereco : "); cliente.setEndereco(readString());
         System.out.print("Digite um numero : "); cliente.setNumero(readString());
@@ -165,7 +174,7 @@ public class CRUD {
     }
     
     
-    //Atualiza o registr de um cliente
+    //Atualiza o registro de um cliente
     public void atualizar(){
         System.out.println("\n\n----------------Atualizar----------------\n");
         
@@ -178,7 +187,9 @@ public class CRUD {
         
         if(cliente != null){
             
+            
             System.out.print("Digite um novo nome : "); cliente.setNome(readString());
+            
             System.out.print("Digite um novo email : "); cliente.setEmail(readString());
             System.out.print("Digite um novo telefone : "); cliente.setTelefone(readString());
             System.out.print("Digite um novo endereco : "); cliente.setEndereco(readString());
@@ -196,6 +207,7 @@ public class CRUD {
         pausa();
     }
     
+    //Deleta registro de cliente através de ID informado
     public void deletar(){
         System.out.println("\n\n----------------Deletar----------------\n");
         System.out.print("Digite o id do cliente que deseja deletar : ");
@@ -213,16 +225,35 @@ public class CRUD {
     
     //Faz a leitura do teclado e retorna uma string
     public static String readString(){
+        UtilMensagem msg;
         String read = "";
         try{
             Scanner scanIn = new Scanner(System.in);
             read = scanIn.nextLine();
         }catch(Exception e){
-            
-        }        
+        }
+        
         return read;
     }
+    
+    //Faz a leitura do teclado valida a mensagem e retorna a mesma, tambem imprime texto solicitando a entrada
+    public String readString(UtilMensagem msg,String texto){
+        System.out.print(texto);
+        do{
+            try{
+                Scanner scanIn = new Scanner(System.in);
+                msg.setMensagemString(scanIn.nextLine());
+            }catch(Exception e){
+            }
+            msg = util.validar(msg);
+            if(!msg.isValido()){
+                System.out.print(msg.getMensagemString() + " Tente novamente!\n" + texto);
+            }
+        }while(!msg.isValido());
         
+        return msg.getMensagemString();
+    }
+    
     //Faz a leitura do teclado e retorna um valor inteiro
     public int readInt(){
         int read = 0;
@@ -283,5 +314,4 @@ public class CRUD {
         }catch(Exception e){
         }
     }
-    
 }
